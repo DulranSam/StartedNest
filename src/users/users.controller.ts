@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 
 @Controller('users')
 export class UsersController {
@@ -25,5 +33,10 @@ export class UsersController {
   @Patch(' :id ')
   TestingPut(@Param('id') id: string) {
     return { id };
+  }
+
+  @Delete()
+  DeleteMfs(@Body('data') data: JSON) {
+    return `Delete them all ${data} `;
   }
 }

@@ -1,12 +1,25 @@
-import { Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import Axios from 'axios';
 
-@Controller('fortnite')
+@Controller('xbox')
 export class FortniteController {
+  name: string;
+  age: number;
+  breed: string;
   @Get('awesome')
   async GetPosts() {
     const request = await Axios.get('https://yts.mx/api/v2/list_movies.json');
     return request.data.data.movies;
+  }
+
+  @Post('lmao/:id')
+  lmfao(@Param('id') id: number) {
+    return { id };
+  }
+
+  @Get()
+  async findAll(): Promise<any[]> {
+    return [{ Alert: 'Lmao' }];
   }
 
   @Get('/:search')
@@ -14,7 +27,8 @@ export class FortniteController {
     const request = await Axios.get(
       `https://yts.mx/api/v2/list_movies.json?query_term=${search}`,
     );
-    return { request };
+    const data = request.data.data.movies;
+    return { data };
   }
 
   @Post('hello')
@@ -25,6 +39,11 @@ export class FortniteController {
   @Post(':search')
   SearchLol(@Param('search') search: string) {
     return { search };
+  }
+
+  @Put('lmao')
+  PutDatShit() {
+    return 'Put request frfr';
   }
 
   @Delete(':id')
